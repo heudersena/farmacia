@@ -9,4 +9,14 @@ class HomeController {
   }
 }
 
+// async index(request: Request, response: Response) { }
+
+// async getById(request: Request, response: Response) { }
+
+// async store(request: Request, response: Response) { }
+
+// async update(request: Request, response: Response) { }
+
+// async delete(request: Request, response: Response) { }
+
 export default new HomeController();
