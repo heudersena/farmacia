@@ -1,10 +1,12 @@
 import { Router } from "express";
 
+import { homeRouter } from "./home.routes"
+import { sessionRouter } from "./session.routes"
+
 const router = Router();
 
-router.get("/", (req, res) => {
-  res.json({ message: "ok" })
-})
+router.use("/home", homeRouter);
+router.use("/session", sessionRouter);
 
 
 
