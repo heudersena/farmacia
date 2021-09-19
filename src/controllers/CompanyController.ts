@@ -59,7 +59,7 @@ class CompanyController {
 
       const company_update = await prisma.company.update({
         where: { id: Number(id) }, data: {
-          register, name, address, number_phone, isActive
+          register, name, address, number_phone, isActive: Boolean(isActive)
         }
       })
 
