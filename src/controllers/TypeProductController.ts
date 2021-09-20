@@ -28,9 +28,12 @@ class TypeProductController {
   }
 
   async store(request: Request, response: Response) {
-    const { name } = request.body;
+    const { name, inventory } = request.body;
     try {
-      const product_type = await prisma.typeProduct.create({ data: { name } });
+      const product_type = await prisma.typeProduct.create({ data: { name, inventory: Number(inventory) } });
+
+      const quantity = await prisma.quantity.create({ data: { quantities: Number(inventory), typeProductId: product_type.id } })
+
       response.json({ err: false, data: product_type, error: null, message: SUCCESS_MESSAGE() })
     } catch (error) {
       response.json({ err: true, data: null, error: error, message: ERROR_MESSAGE() });
@@ -39,9 +42,9 @@ class TypeProductController {
 
   async update(request: Request, response: Response) {
     const { id } = request.params;
-    const { name, isActive } = request.body;
+    const { name, isActive, inventory } = request.body;
     try {
-      const product_type = await prisma.typeProduct.update({ where: { id: Number(id) }, data: { name, isActive: Boolean(isActive) } });
+      const product_type = await prisma.typeProduct.update({ where: { id: Number(id) }, data: { name, isActive: Boolean(isActive), inventory: Number(inventory) } });
       response.json({ err: false, data: product_type, error: null, message: SUCCESS_MESSAGE() })
     } catch (error) {
       response.json({ err: true, data: null, error: error.message, message: ERROR_MESSAGE() });
