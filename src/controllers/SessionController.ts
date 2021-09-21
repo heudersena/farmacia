@@ -15,8 +15,8 @@ class SessionController {
       if (user == null) response.json({ err: true, data: null, error: null, message: ERROR_USER_PASSWORD() });
       if (!bcrypt.compareSync(password, user.password)) response.json({ err: true, data: null, error: null, message: ERROR_USER_PASSWORD() });
 
-      const token = jwt.sign({ data: { id: user.id, user:{username: user.username, role: user.role, id: user.id} } }, process.env.JWT, { expiresIn: '8h' });
-      response.json({ err: false, data: { token, user:{username: user.username, role: user.role, id: user.id} }, error: null, message: SUCCESS_MESSAGE() })
+      const token = jwt.sign({ data: { id: user.id, username: user.username, role: user.role } }, process.env.JWT, { expiresIn: '8h' });
+      response.json({ err: false, data: { token, username: user.username, role: user.role, id: user.id}, error: null, message: SUCCESS_MESSAGE() })
 
     } catch (error) {
       response.json({ err: true, data: null, error: error.message, message: ERROR_MESSAGE() })

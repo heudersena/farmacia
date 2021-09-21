@@ -42,16 +42,6 @@ CREATE TABLE `typesProducts` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `quantities` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `quantities` INTEGER NOT NULL,
-    `quantities_minimal` INTEGER DEFAULT 20,
-    `typeProductId` INTEGER NOT NULL,
-
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
 CREATE TABLE `exits` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
@@ -64,11 +54,10 @@ CREATE TABLE `exits` (
 -- CreateTable
 CREATE TABLE `dispatches` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `quantity` INTEGER NOT NULL,
     `typeProductId` INTEGER NOT NULL,
     `userId` INTEGER NOT NULL,
     `exitId` INTEGER NOT NULL,
-    `quantity` INTEGER NOT NULL,
-    `data` VARCHAR(191) NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
@@ -88,8 +77,10 @@ CREATE TABLE `appetizer` (
 -- CreateTable
 CREATE TABLE `products` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `nfe` VARCHAR(191) NOT NULL,
+    `nfe` VARCHAR(191),
     `expires` VARCHAR(191) NOT NULL,
+    `code_unique` VARCHAR(191) NOT NULL,
+    `quantity` INTEGER NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `typeProductId` INTEGER NOT NULL,
@@ -100,8 +91,19 @@ CREATE TABLE `products` (
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
--- AddForeignKey
-ALTER TABLE `quantities` ADD CONSTRAINT `quantities_typeProductId_fkey` FOREIGN KEY (`typeProductId`) REFERENCES `typesProducts`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+-- CreateTable
+CREATE TABLE `reports` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `quantity` INTEGER NOT NULL,
+    `role` ENUM('ENTRADA', 'SAIDA', 'OUTRO') NOT NULL,
+    `note` VARCHAR(999),
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updated_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `typeProductId` INTEGER NOT NULL,
+    `userId` INTEGER NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
 ALTER TABLE `dispatches` ADD CONSTRAINT `dispatches_typeProductId_fkey` FOREIGN KEY (`typeProductId`) REFERENCES `typesProducts`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -123,3 +125,9 @@ ALTER TABLE `products` ADD CONSTRAINT `products_userId_fkey` FOREIGN KEY (`userI
 
 -- AddForeignKey
 ALTER TABLE `products` ADD CONSTRAINT `products_prohibitedId_fkey` FOREIGN KEY (`prohibitedId`) REFERENCES `appetizer`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `reports` ADD CONSTRAINT `reports_typeProductId_fkey` FOREIGN KEY (`typeProductId`) REFERENCES `typesProducts`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `reports` ADD CONSTRAINT `reports_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

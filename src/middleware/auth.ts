@@ -9,8 +9,7 @@ const Auth = (request: Request, response: Response, next: NextFunction) => {
 
   const [, token] = authHeader.split(" ");
   try {
-    verify(token, process.env.JWT, (err, decoded) => {
-      console.log(decoded);      
+    verify(token, process.env.JWT, (err, decoded) => {      
       request.userId = decoded.data;
     })
 

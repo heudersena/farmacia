@@ -25,6 +25,7 @@ model User {
   isActive   Boolean    @default(true)
   Dispatch   Dispatch[]
   Product    Product[]
+  Report     Report[]
   created_at DateTime   @default(now())
   updated_at DateTime   @default(now()) @updatedAt
 
@@ -50,26 +51,14 @@ model TypeProduct {
   id         Int        @id @default(autoincrement())
   name       String
   isActive   Boolean    @default(true)
-  inventory  Int
-  Quantity   Quantity[]
+  inventory  Int // quantidade de estoque
   created_at DateTime   @default(now())
   updated_at DateTime   @default(now()) @updatedAt
   Dispatch   Dispatch[]
   Product    Product[]
+  Report     Report[]
 
   @@map("typesProducts")
-}
-
-model Quantity {
-  id                 Int         @id @default(autoincrement())
-  quantities         Int
-  quantities_minimal Int?        @default(20)
-  TypeProduct        TypeProduct @relation(fields: [typeProductId], references: [id])
-  typeProductId      Int
-
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now()) @updatedAt
-  @@map("quantities")
 }
 
 model Exit {
@@ -85,14 +74,14 @@ model Exit {
 // Saida de produtos da farmácia
 model Dispatch {
   id            Int         @id @default(autoincrement())
+  quantity      Int
+
   TypeProduct   TypeProduct @relation(fields: [typeProductId], references: [id])
   typeProductId Int
   User          User        @relation(fields: [userId], references: [id])
   userId        Int
   Exit          Exit        @relation(fields: [exitId], references: [id])
   exitId        Int
-  quantity      Int
-  data          String
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now()) @updatedAt
@@ -116,6 +105,7 @@ model Product {
   nfe         String?
   expires     String
   code_unique String
+  quantity    Int
   created_at  DateTime @default(now())
   updated_at  DateTime @default(now()) @updatedAt
 
@@ -128,4 +118,25 @@ model Product {
   Prohibited    Prohibited  @relation(fields: [prohibitedId], references: [id])
   prohibitedId  Int
   @@map("products")
+}
+
+enum ReportType {
+  ENTRADA
+  SAIDA
+  OUTRO
+}
+
+model Report {
+  id         Int        @id @default(autoincrement())
+  quantity   Int
+  role       ReportType
+  note       String?    @db.VarChar(999)
+  created_at DateTime   @default(now())
+  updated_at DateTime   @default(now()) @updatedAt
+
+  TypeProduct   TypeProduct @relation(fields: [typeProductId], references: [id])
+  typeProductId Int
+  User          User        @relation(fields: [userId], references: [id])
+  userId        Int
+  @@map("reports")
 }

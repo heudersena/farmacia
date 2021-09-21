@@ -44,7 +44,7 @@ class CompanyController {
       });
       response.json({ err: false, data: company, error: null, message: SUCCESS_MESSAGE() })
     } catch (error) {
-      response.json({ err: true, data: null, error: error, message: ERROR_MESSAGE() });
+      response.json({ err: true, data: null, error: error.message, message: ERROR_MESSAGE() });
     }
   }
 
