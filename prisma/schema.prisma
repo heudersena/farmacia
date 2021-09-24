@@ -77,10 +77,11 @@ model Dispatch {
   quantity      Int
 
   TypeProduct   TypeProduct @relation(fields: [typeProductId], references: [id])
-  typeProductId Int
   User          User        @relation(fields: [userId], references: [id])
-  userId        Int
   Exit          Exit        @relation(fields: [exitId], references: [id])
+  
+  typeProductId Int
+  userId        Int
   exitId        Int
 
   created_at DateTime @default(now())
@@ -110,12 +111,12 @@ model Product {
   updated_at  DateTime @default(now()) @updatedAt
 
   TypeProduct   TypeProduct @relation(fields: [typeProductId], references: [id])
-  typeProductId Int
   Company       Company     @relation(fields: [companyId], references: [id])
-  companyId     Int
   User          User        @relation(fields: [userId], references: [id])
-  userId        Int
   Prohibited    Prohibited  @relation(fields: [prohibitedId], references: [id])
+  typeProductId Int
+  companyId     Int
+  userId        Int
   prohibitedId  Int
   @@map("products")
 }
@@ -135,8 +136,8 @@ model Report {
   updated_at DateTime   @default(now()) @updatedAt
 
   TypeProduct   TypeProduct @relation(fields: [typeProductId], references: [id])
-  typeProductId Int
   User          User        @relation(fields: [userId], references: [id])
+  typeProductId Int
   userId        Int
   @@map("reports")
 }

@@ -1,6 +1,5 @@
 import express from "express";
 import CompanyController from "../controllers/CompanyController";
-
 const companyRouter = express.Router();
 
 

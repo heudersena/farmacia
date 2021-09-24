@@ -11,9 +11,19 @@
     "@types/jsonwebtoken": "^8.5.5",
     "@types/node": "^16.9.2",
     "@types/uuid": "^8.3.1",
+    "@typescript-eslint/eslint-plugin": "^4.31.2",
+    "babel-plugin-transform-typescript-metadata": "^0.3.2",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-typescript": "^2.5.0",
+    "eslint-plugin-import-helpers": "^1.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.4.1",
     "prisma": "3.0.2",
     "ts-node": "^10.2.1",
     "ts-node-dev": "^1.1.8",
+    "tsconfig-paths": "^3.11.0",
     "typescript": "^4.4.3"
   },
   "dependencies": {
@@ -28,7 +38,7 @@
     "uuid": "^8.3.2"
   },
   "scripts": {
-    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
+    "dev": "ts-node-dev -r tsconfig-paths/register  --inspect --transpile-only --ignore-watch node_modules src/server.ts",
     "build": "rimraf ./build && tsc",
     "start": "node dist/server.js",
     "migrate": "npx prisma migrate dev --name "

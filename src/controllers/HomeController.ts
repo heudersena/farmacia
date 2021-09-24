@@ -1,12 +1,12 @@
 import { Request, Response } from "express"
-import { generateUiidV1 } from "../config/helper";
+import { gerarLote } from "../config/helper";
 type IProps = {
   message: string
 }
 class HomeController {
   index(request: Request, response: Response) {
     // throw new Error("Error")
-    const unique = generateUiidV1();
+    const unique = gerarLote();
     response.json({ message: "Home", unique})
   }
 }

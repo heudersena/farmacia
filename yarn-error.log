@@ -1,30 +1,30 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add @types/express-async-errors -D
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add tsconfig-path eslint-plugin-prettier eslint-plugin-import-helpers eslint-import-resolver-typescript eslint-config-prettier eslint-config-airbnb-base eslint @typescript-eslint/eslint-plugin -D
 
 PATH: 
-  C:\Python310\Scripts\;C:\Python310\;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files\Java\jdk1.8.0_211\bin;C:\Program Files\nodejs\;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Microsoft VS Code\bin;C:\Users\Rodrigues\AppData\Local\Android\Sdk\emulator;C:\Users\Rodrigues\AppData\Local\Android\Sdk\tools;C:\Users\Rodrigues\AppData\Local\Android\Sdk\tools\bin;C:\Users\Rodrigues\AppData\Local\Android\Sdk\platform-tools;C:\Program Files\PuTTY\;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\Oracle\VirtualBox\VirtualBox.exe;C:\Program Files\Oracle\VirtualBox\VBoxManage.exe;C:\Program Files (x86)\MySQL\MySQL Utilities 1.3.6\;C:\Program Files\Redis\;C:\Program Files\Git\cmd;C:\Program Files\PowerShell\7\;C:\Program Files\Zabbix Agent\;C:\gradle\bin;C:\Users\Rodrigues\AppData\Local\Programs\Python\Python39\Scripts\;C:\Users\Rodrigues\AppData\Local\Programs\Python\Python39\;C:\Users\Rodrigues\AppData\Local\Microsoft\WindowsApps;C:\Users\Rodrigues\AppData\Roaming\npm;C:\Users\Rodrigues\AppData\Local\Yarn\bin;C:\gradle\bin;
+  C:\Program Files (x86)\VMware\VMware Workstation\bin\;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;C:\ProgramData\chocolatey\bin;C:\Program Files\Microsoft VS Code\bin;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Java\jdk1.8.0_211\bin;C:\Program Files\PuTTY\;C:\Users\hsena\AppData\Local\Android\Sdk\emulator;C:\Users\hsena\AppData\Local\Android\Sdk\tools;C:\Users\hsena\AppData\Local\Android\Sdk\tools\bin;C:\Users\hsena\AppData\Local\Android\Sdk\platform-tools;C:\ProgramData\chocolatey\lib\scrcpy\tools;C:\xampp\php\php.exe;C:\cmder\Cmder.exe;C:\Program Files\Oracle\VirtualBox\VBoxManage.exe;C:\ngrok.exe;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Program Files\Zabbix Agent\;C:\Users\vida2\AppData\Local\Programs\Python\Python39\Scripts\;C:\Users\vida2\AppData\Local\Programs\Python\Python39\;C:\Users\vida2\AppData\Local\Microsoft\WindowsApps;C:\Users\vida2\AppData\Local\GitHubDesktop\bin;C:\Users\vida2\AppData\Roaming\npm
 
 Yarn version: 
   1.22.5
 
 Node version: 
-  15.12.0
+  16.8.0
 
 Platform: 
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2fexpress-async-errors: Not found
+  Error: https://registry.yarnpkg.com/tsconfig-path: Not found
       at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:66097:18)
       at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:140749:22)
-      at Request.emit (node:events:369:20)
+      at Request.emit (node:events:394:28)
       at Request.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141721:10)
-      at Request.emit (node:events:369:20)
+      at Request.emit (node:events:394:28)
       at IncomingMessage.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141643:12)
-      at Object.onceWrapper (node:events:475:28)
-      at IncomingMessage.emit (node:events:381:22)
-      at endReadableNT (node:internal/streams/readable:1307:12)
-      at processTicksAndRejections (node:internal/process/task_queues:81:21)
+      at Object.onceWrapper (node:events:513:28)
+      at IncomingMessage.emit (node:events:406:35)
+      at endReadableNT (node:internal/streams/readable:1343:12)
+      at processTicksAndRejections (node:internal/process/task_queues:83:21)
 
 npm manifest: 
   {
@@ -33,11 +33,14 @@ npm manifest:
     "main": "index.js",
     "license": "MIT",
     "devDependencies": {
+      "@types/bcryptjs": "^2.4.2",
       "@types/cors": "^2.8.12",
       "@types/dotenv": "^8.2.0",
       "@types/express": "^4.17.13",
       "@types/jsonwebtoken": "^8.5.5",
       "@types/node": "^16.9.2",
+      "@types/uuid": "^8.3.1",
+      "prettier": "^2.4.1",
       "prisma": "3.0.2",
       "ts-node": "^10.2.1",
       "ts-node-dev": "^1.1.8",
@@ -45,15 +48,17 @@ npm manifest:
     },
     "dependencies": {
       "@prisma/client": "^3.0.2",
+      "bcryptjs": "^2.4.3",
       "cors": "^2.8.5",
       "dotenv": "^10.0.0",
       "express": "^4.17.1",
       "express-async-errors": "^3.1.1",
       "jsonwebtoken": "^8.5.1",
-      "socket.io": "^4.2.0"
+      "socket.io": "^4.2.0",
+      "uuid": "^8.3.2"
     },
     "scripts": {
-      "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
+      "dev": "ts-node-dev  --inspect --transpile-only --ignore-watch node_modules src/server.ts",
       "build": "rimraf ./build && tsc",
       "start": "node dist/server.js",
       "migrate": "npx prisma migrate dev --name "
@@ -116,6 +121,11 @@ Lockfile:
     version "1.0.2"
     resolved "https://registry.yarnpkg.com/@tsconfig/node16/-/node16-1.0.2.tgz#423c77877d0569db20e1fc80885ac4118314010e"
     integrity sha512-eZxlbI8GZscaGS7kkc/trHTT5xgrjH3/1n2JDwusC9iahPKWMRvRjJSAN5mCXviuTGQ/lHnhvv8Q1YTpnfz9gA==
+  
+  "@types/bcryptjs@^2.4.2":
+    version "2.4.2"
+    resolved "https://registry.yarnpkg.com/@types/bcryptjs/-/bcryptjs-2.4.2.tgz#e3530eac9dd136bfdfb0e43df2c4c5ce1f77dfae"
+    integrity sha512-LiMQ6EOPob/4yUL66SZzu6Yh77cbzJFYll+ZfaPiPPFswtIlA/Fs1MzdKYA7JApHU49zQTbJGX3PDmCpIdDBRQ==
   
   "@types/body-parser@*":
     version "1.19.1"
@@ -218,6 +228,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@types/strip-json-comments/-/strip-json-comments-0.0.30.tgz#9aa30c04db212a9a0649d6ae6fd50accc40748a1"
     integrity sha512-7NQmHra/JILCd1QqpSzl8+mJRc8ZHz3uDm8YV1Ks9IhK0epEiTw8aIErbvH9PI+6XbqhyIQy3462nEsn7UVzjQ==
   
+  "@types/uuid@^8.3.1":
+    version "8.3.1"
+    resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-8.3.1.tgz#1a32969cf8f0364b3d8c8af9cc3555b7805df14f"
+    integrity sha512-Y2mHTRAbqfFkpjldbkHGY8JIzRN6XqYRliG8/24FcHm2D2PwW24fl5xMRTVGdrb7iMrwCaIEbLWerGIkXuFWVg==
+  
   accepts@~1.3.4, accepts@~1.3.7:
     version "1.3.7"
     resolved "https://registry.yarnpkg.com/accepts/-/accepts-1.3.7.tgz#531bc726517a3b2b41f850021c6cc15eaab507cd"
@@ -268,6 +283,11 @@ Lockfile:
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/base64id/-/base64id-2.0.0.tgz#2770ac6bc47d312af97a8bf9a634342e0cd25cb6"
     integrity sha512-lGe34o6EHj9y3Kts9R4ZYs/Gr+6N7MCaMlIFA3F1R2O5/m7K06AxfSeO5530PEERE6/WyEg3lsuyw4GHlPZHog==
+  
+  bcryptjs@^2.4.3:
+    version "2.4.3"
+    resolved "https://registry.yarnpkg.com/bcryptjs/-/bcryptjs-2.4.3.tgz#9ab5627b93e60621ff7cdac5da9733027df1d0cb"
+    integrity sha1-mrVie5PmBiH/fNrF2pczAn3x0Ms=
   
   binary-extensions@^2.0.0:
     version "2.2.0"
@@ -864,6 +884,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.0.tgz#f1f061de8f6a4bf022892e2d128234fb98302972"
     integrity sha512-lY1Q/PiJGC2zOv/z391WOTD+Z02bCgsFfvxoXXf6h7kv9o+WmsmzYqrAwY63sNgOxE4xEdq0WyUnXfKeBrSvYw==
   
+  prettier@^2.4.1:
+    version "2.4.1"
+    resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.4.1.tgz#671e11c89c14a4cfc876ce564106c4a6726c9f5c"
+    integrity sha512-9fbDAXSBcc6Bs1mZrDYb3XKzDLm4EXXL9sC1LqKP5rZkT6KRr/rf9amVUcODVXgguK/isJz0d0hP72WeaKWsvA==
+  
   prisma@3.0.2:
     version "3.0.2"
     resolved "https://registry.yarnpkg.com/prisma/-/prisma-3.0.2.tgz#e86cb6abf4a815c7ac97b9d0ed383f01c253ce34"
@@ -1127,6 +1152,11 @@ Lockfile:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
     integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
+  
+  uuid@^8.3.2:
+    version "8.3.2"
+    resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
+    integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
   
   vary@^1, vary@~1.1.2:
     version "1.1.2"
