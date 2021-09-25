@@ -10,7 +10,7 @@ import { prisma } from "../prisma/client";
 class ReportController {
   async index(request: Request, response: Response) {
       try {
-        const relatorio = await prisma.report.findMany()
+        const relatorio = await prisma.report.findMany({orderBy:{id: "desc"},include:{ TypeProduct:true} })
         response.json({ err: false, data: relatorio, error: null, message: SUCCESS_MESSAGE() })
       } catch (error) {
           response.json({ err: true, data: null, error: null, message: ERROR_MESSAGE() });

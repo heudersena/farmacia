@@ -7,6 +7,7 @@ import { typeProductRouter } from "./typeproduct.routes";
 import { reportRouter } from "./report.routes";
 import { entradaProdutoRouter } from "./entradaproduto.routes";
 import { dispatchRouter } from "./dispatch.routes";
+import { prohibitedRouter } from "./prohibited.routes";
 
 const router = Router();
 
@@ -17,5 +18,6 @@ router.use("/typeproduct", typeProductRouter);
 router.use("/report", reportRouter);
 router.use("/product", entradaProdutoRouter);
 router.use("/dispatch", dispatchRouter);
+router.use("/prohibited", prohibitedRouter);
 
 export default router;
