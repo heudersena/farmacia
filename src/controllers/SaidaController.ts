@@ -7,32 +7,10 @@ import {
 } from '../config/message';
 import { prisma } from '../prisma/client';
 
-class ProhibitedController {
+class SaidaController {
     async index(request: Request, response: Response) {
         try {
-            const relatorio = await prisma.prohibited.findMany();
-            response.json({
-                err: false,
-                data: relatorio,
-                error: null,
-                message: SUCCESS_MESSAGE(),
-            });
-        } catch (error) {
-            response.json({
-                err: true,
-                data: null,
-                error: null,
-                message: ERROR_MESSAGE(),
-            });
-        }
-    }
-    async getById(request: Request, response: Response) {
-        const { id } = request.params;
-        try {
-            const response_data = await prisma.prohibited.findFirst({
-                where: { id: Number(id) },
-            });
-
+            const response_data = await prisma.exit.findMany();
             response.json({
                 err: false,
                 data: response_data,
@@ -44,19 +22,20 @@ class ProhibitedController {
                 err: true,
                 data: null,
                 error: error.message,
-                message: ERROR_MESSAGE(),
+                message: ERROR_NULL(),
             });
         }
     }
-    async store(request: Request, response: Response) {
-        const { name } = request.body;
+    async getById(request: Request, response: Response) {
+        const { id } = request.params;
+
         try {
-            const prohibited = await prisma.prohibited.create({
-                data: { name: name },
+            const response_data = await prisma.exit.findFirst({
+                where: { id: Number(id) },
             });
             response.json({
                 err: false,
-                data: prohibited,
+                data: response_data,
                 error: null,
                 message: SUCCESS_MESSAGE(),
             });
@@ -65,7 +44,28 @@ class ProhibitedController {
                 err: true,
                 data: null,
                 error: error.message,
-                message: ERROR_MESSAGE(),
+                message: ERROR_NULL(),
+            });
+        }
+    }
+    async store(request: Request, response: Response) {
+        const { name } = request.body;
+        try {
+            const response_data = await prisma.exit.create({
+                data: { name: name },
+            });
+            response.json({
+                err: false,
+                data: response_data,
+                error: null,
+                message: SUCCESS_MESSAGE(),
+            });
+        } catch (error) {
+            response.json({
+                err: true,
+                data: null,
+                error: error.message,
+                message: ERROR_NULL(),
             });
         }
     }
@@ -73,11 +73,9 @@ class ProhibitedController {
         const { id } = request.params;
         const { name } = request.body;
         try {
-            const response_data = await prisma.prohibited.update({
+            const response_data = await prisma.exit.update({
                 where: { id: Number(id) },
-                data: {
-                    name: name,
-                },
+                data: { name: name },
             });
             response.json({
                 err: false,
@@ -90,14 +88,14 @@ class ProhibitedController {
                 err: true,
                 data: null,
                 error: error.message,
-                message: ERROR_MESSAGE(),
+                message: ERROR_NULL(),
             });
         }
     }
     async delete(request: Request, response: Response) {
         const { id } = request.params;
         try {
-            const response_data = await prisma.prohibited.delete({
+            const response_data = await prisma.exit.delete({
                 where: { id: Number(id) },
             });
             response.json({
@@ -111,10 +109,10 @@ class ProhibitedController {
                 err: true,
                 data: null,
                 error: error.message,
-                message: ERROR_MESSAGE(),
+                message: ERROR_NULL(),
             });
         }
     }
 }
 
-export default new ProhibitedController();
+export default new SaidaController();

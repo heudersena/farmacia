@@ -19,7 +19,7 @@ class EntradaProdutoController {
     }
   }
   async getById(request: Request, response: Response) { }
-  
+
   async store(request: Request, response: Response) {
     const {
       nfe,

@@ -1,14 +1,13 @@
-import express from "express";
-import CompanyController from "../controllers/CompanyController";
+import express from 'express';
+
+import { Auth } from '@middleware/auth';
+import CTR from '@controllers/CompanyController';
 const companyRouter = express.Router();
 
+companyRouter.get('/', CTR.index);
+companyRouter.get('/:id', CTR.getById);
+companyRouter.post('/store', Auth, CTR.store);
+companyRouter.put('/update/:id', Auth, CTR.update);
+companyRouter.delete('/delete/:id', Auth, CTR.delete);
 
-companyRouter.get("/", CompanyController.index);
-companyRouter.get("/:id", CompanyController.getById);
-companyRouter.post("/store", CompanyController.store);
-companyRouter.put("/update/:id", CompanyController.update);
-companyRouter.delete("/delete/:id", CompanyController.delete);
-
-
-
-export { companyRouter }
+export { companyRouter };
