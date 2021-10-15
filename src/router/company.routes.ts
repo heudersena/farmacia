@@ -1,7 +1,7 @@
 import express from 'express';
 
-import { Auth } from '@middleware/auth';
-import CTR from '@controllers/CompanyController';
+import { Auth } from '../middleware/auth';
+import CTR from '../controllers/CompanyController';
 const companyRouter = express.Router();
 
 companyRouter.get('/', CTR.index);

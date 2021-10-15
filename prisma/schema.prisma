@@ -1,142 +1,142 @@
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+    provider = "mysql"
+    url      = env("DATABASE_URL")
 }
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 enum UserType {
-  ADMIN
-  USER
-  OUTRO
+    ADMIN
+    USER
+    OUTRO
 }
 
 model User {
-  id         Int        @id @default(autoincrement())
-  username   String     @unique @db.VarChar(50)
-  email      String     @unique @db.VarChar(200)
-  password   String     @db.VarChar(100)
-  role       UserType   @default(USER)
-  isActive   Boolean    @default(true)
-  Dispatch   Dispatch[]
-  Product    Product[]
-  Report     Report[]
-  created_at DateTime   @default(now())
-  updated_at DateTime   @default(now()) @updatedAt
+    id         Int        @id @default(autoincrement())
+    username   String     @unique @db.VarChar(50)
+    email      String     @unique @db.VarChar(200)
+    password   String     @db.VarChar(100)
+    role       UserType   @default(USER)
+    isActive   Boolean    @default(true)
+    Dispatch   Dispatch[]
+    Product    Product[]
+    Report     Report[]
+    created_at DateTime   @default(now())
+    updated_at DateTime   @default(now()) @updatedAt
 
-  @@map("users")
+    @@map("users")
 }
 
 model Company {
-  id           Int       @id @default(autoincrement())
-  register     String    @unique
-  name         String
-  isActive     Boolean   @default(true)
-  address      String?
-  number_phone String?
-  Product      Product[]
+    id           Int       @id @default(autoincrement())
+    register     String    @unique
+    name         String
+    isActive     Boolean   @default(true)
+    address      String?
+    number_phone String?
+    Product      Product[]
 
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now()) @updatedAt
+    created_at DateTime @default(now())
+    updated_at DateTime @default(now()) @updatedAt
 
-  @@map("companies")
+    @@map("companies")
 }
 
 model TypeProduct {
-  id         Int        @id @default(autoincrement())
-  name       String
-  isActive   Boolean    @default(true)
-  inventory  Int // quantidade de estoque
-  created_at DateTime   @default(now())
-  updated_at DateTime   @default(now()) @updatedAt
-  Dispatch   Dispatch[]
-  Product    Product[]
-  Report     Report[]
+    id         Int        @id @default(autoincrement())
+    name       String
+    isActive   Boolean    @default(true)
+    inventory  Int // quantidade de estoque
+    created_at DateTime   @default(now())
+    updated_at DateTime   @default(now()) @updatedAt
+    Dispatch   Dispatch[]
+    Product    Product[]
+    Report     Report[]
 
-  @@map("typesProducts")
+    @@map("typesProducts")
 }
 
 model Exit {
-  id         Int        @id @default(autoincrement())
-  name       String
-  Dispatch   Dispatch[]
-  created_at DateTime   @default(now())
-  updated_at DateTime   @default(now()) @updatedAt
+    id         Int        @id @default(autoincrement())
+    name       String
+    Dispatch   Dispatch[]
+    created_at DateTime   @default(now())
+    updated_at DateTime   @default(now()) @updatedAt
 
-  @@map("exits")
+    @@map("exits")
 }
 
 // Saida de produtos da farmácia
 model Dispatch {
-  id            Int         @id @default(autoincrement())
-  quantity      Int
+    id       Int @id @default(autoincrement())
+    quantity Int
 
-  TypeProduct   TypeProduct @relation(fields: [typeProductId], references: [id])
-  User          User        @relation(fields: [userId], references: [id])
-  Exit          Exit        @relation(fields: [exitId], references: [id])
-  
-  typeProductId Int
-  userId        Int
-  exitId        Int
+    TypeProduct TypeProduct @relation(fields: [typeProductId], references: [id])
+    User        User        @relation(fields: [userId], references: [id])
+    Exit        Exit        @relation(fields: [exitId], references: [id])
 
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now()) @updatedAt
+    typeProductId Int
+    userId        Int
+    exitId        Int
 
-  @@map("dispatches")
+    created_at DateTime @default(now())
+    updated_at DateTime @default(now()) @updatedAt
+
+    @@map("dispatches")
 }
 
 // Entrada
 model Prohibited {
-  id         Int       @id @default(autoincrement())
-  name       String
-  Product    Product[]
-  created_at DateTime  @default(now())
-  updated_at DateTime  @default(now()) @updatedAt
+    id         Int       @id @default(autoincrement())
+    name       String
+    Product    Product[]
+    created_at DateTime  @default(now())
+    updated_at DateTime  @default(now()) @updatedAt
 
-  @@map("appetizer")
+    @@map("appetizer")
 }
 
 model Product {
-  id          Int      @id @default(autoincrement())
-  nfe         String?
-  expires     String
-  code_unique String
-  quantity    Int
+    id          Int     @id @default(autoincrement())
+    nfe         String?
+    expires     String
+    code_unique String
+    quantity    Int
 
-  TypeProduct   TypeProduct @relation(fields: [typeProductId], references: [id])
-  Company       Company     @relation(fields: [companyId], references: [id])
-  User          User        @relation(fields: [userId], references: [id])
-  Prohibited    Prohibited  @relation(fields: [prohibitedId], references: [id])
-  typeProductId Int
-  companyId     Int
-  userId        Int
-  prohibitedId  Int
+    TypeProduct   TypeProduct @relation(fields: [typeProductId], references: [id])
+    Company       Company     @relation(fields: [companyId], references: [id])
+    User          User        @relation(fields: [userId], references: [id])
+    Prohibited    Prohibited  @relation(fields: [prohibitedId], references: [id])
+    typeProductId Int
+    companyId     Int
+    userId        Int
+    prohibitedId  Int
 
-  created_at  DateTime @default(now())
-  updated_at  DateTime @default(now()) @updatedAt
+    created_at DateTime @default(now())
+    updated_at DateTime @default(now()) @updatedAt
 
-  @@map("products")
+    @@map("products")
 }
 
 enum ReportType {
-  ENTRADA
-  SAIDA
-  OUTRO
+    ENTRADA
+    SAIDA
+    OUTRO
 }
 
 model Report {
-  id         Int        @id @default(autoincrement())
-  quantity   Int
-  role       ReportType
-  note       String?    @db.VarChar(999)
-  created_at DateTime   @default(now())
-  updated_at DateTime   @default(now()) @updatedAt
+    id         Int        @id @default(autoincrement())
+    quantity   Int
+    role       ReportType
+    note       String?    @db.VarChar(999)
+    created_at DateTime   @default(now())
+    updated_at DateTime   @default(now()) @updatedAt
 
-  TypeProduct   TypeProduct @relation(fields: [typeProductId], references: [id])
-  User          User        @relation(fields: [userId], references: [id])
-  typeProductId Int
-  userId        Int
-  @@map("reports")
+    TypeProduct   TypeProduct @relation(fields: [typeProductId], references: [id])
+    User          User        @relation(fields: [userId], references: [id])
+    typeProductId Int
+    userId        Int
+    @@map("reports")
 }

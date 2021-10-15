@@ -16,7 +16,7 @@ class CompanyController {
 
         try {
             const rows_total_register: any = await prisma.company.count();
-            const company = await prisma.company.findMany({ skip: Number(per_page), take: Number(limit_sql) });
+            const company = await prisma.company.findMany();
             response.header('X-Total-Count-Company', rows_total_register);
             response.json({ err: false, data: { company, rows_total_register }, error: null, message: SUCCESS_MESSAGE() })
         } catch (error) {

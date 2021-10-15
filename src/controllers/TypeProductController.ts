@@ -18,7 +18,6 @@ class TypeProductController {
   async index(request: Request, response: Response) {
     try {
       const data = request.userId;
-      console.log(data.username);
 
       const product_type = await prisma.typeProduct.findMany();
       response.json({

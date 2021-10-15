@@ -1,7 +1,7 @@
 import express from 'express';
-import CTRL from '@controllers/SaidaController';
+import CTRL from '../controllers/SaidaController';
 
-import { Auth } from '@middleware/auth';
+import { Auth } from '../middleware/auth';
 
 const saidaRouter = express.Router();
 

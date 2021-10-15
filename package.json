@@ -35,14 +35,17 @@
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^8.5.1",
+    "luaparse": "^0.3.1",
     "prisma-offset-pagination": "^0.0.4",
     "socket.io": "^4.2.0",
+    "tscpaths": "^0.0.9",
     "uuid": "^8.3.2"
   },
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register  --inspect --transpile-only --ignore-watch node_modules src/server.ts",
     "build": "rimraf ./build && tsc",
-    "start": "node dist/server.js",
+    "buildr": "rimraf ./build && tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./build",
+    "start": "node build/server.js",
     "migrate": "npx prisma migrate dev --name "
   }
 }

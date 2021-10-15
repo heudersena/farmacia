@@ -1,6 +1,6 @@
 import express from "express";
-import ProhibitedController from "@controllers/ProhibitedController";
-import { Auth } from "@middleware/auth";
+import ProhibitedController from "../controllers/ProhibitedController";
+import { Auth } from "../middleware/auth";
 
 const prohibitedRouter = express.Router();
 
