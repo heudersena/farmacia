@@ -1,14 +1,14 @@
 import { Router } from 'express';
 
-import { homeRouter } from './home.routes';
-import { sessionRouter } from './session.routes';
-import { companyRouter } from './company.routes';
-import { typeProductRouter } from './typeproduct.routes';
-import { reportRouter } from './report.routes';
-import { entradaProdutoRouter } from './entradaproduto.routes';
-import { dispatchRouter } from './dispatch.routes';
-import { prohibitedRouter } from './prohibited.routes';
-import { saidaRouter } from './saida.routes';
+import { homeRouter } from '@routes/home.routes';
+import { sessionRouter } from '@routes/session.routes';
+import { companyRouter } from '@routes/company.routes';
+import { typeProductRouter } from '@routes/typeproduct.routes';
+import { reportRouter } from '@routes/report.routes';
+import { entradaProdutoRouter } from '@routes/entradaproduto.routes';
+import { dispatchRouter } from '@routes/dispatch.routes';
+import { prohibitedRouter } from '@routes/prohibited.routes';
+import { saidaRouter } from '@routes/saida.routes';
 
 const router = Router();
 
