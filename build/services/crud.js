@@ -10,7 +10,7 @@ const EntradaProduto = async ({ user_id, quantidade, role, typeProductId, note }
                 typeProductId: typeProductId,
                 role: role,
                 quantity: quantidade,
-                note: note
+                note: note,
             }
         });
         return responseEntradaProduto;

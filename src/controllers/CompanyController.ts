@@ -9,16 +9,9 @@ import { prisma } from "../prisma/client"
 class CompanyController {
 
     async index(request: Request, response: Response) {
-        const { page, limit } = request.query;
-
-        const per_page = page ? page : 0;
-        const limit_sql = limit ? limit : 10;
-
         try {
-            const rows_total_register: any = await prisma.company.count();
             const company = await prisma.company.findMany();
-            response.header('X-Total-Count-Company', rows_total_register);
-            response.json({ err: false, data: { company, rows_total_register }, error: null, message: SUCCESS_MESSAGE() })
+            response.json({ err: false, data: company, error: null, message: SUCCESS_MESSAGE() })
         } catch (error) {
             response.json({ err: true, data: null, error: null, message: ERROR_MESSAGE() });
         }
@@ -41,6 +34,13 @@ class CompanyController {
 
     async store(request: Request, response: Response) {
         const { register, name, address, number_phone } = request.body;
+
+        if(register === '' || name === '' || address === '' || number_phone === '') {     
+                               
+            return  response.json({ err: true, data: null, error: null, message: CUSTOM_MESSAGE("OLHA! PREENCHA TODOS OS CAMPOS QUE SÃO OBRIGATÓRIOS") }); 
+        }
+        
+
         try {
             const company = await prisma.company.create({
                 data: {

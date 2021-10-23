@@ -7,11 +7,11 @@ const Auth = (request, response, next) => {
     const authHeader = request.headers.authorization;
     if (!authHeader)
         return response.json({ err: true, jwt: true, message: (0, message_1.ERROR_JWT)() });
-    const [, token] = authHeader.split(" ");
+    const [, token] = authHeader.split(' ');
     try {
-        (0, jsonwebtoken_1.verify)(token, process.env.JWT, (err, decoded) => {
-            request.userId = decoded.data;
-        });
+        const { sub } = (0, jsonwebtoken_1.verify)(token, process.env.JWT);
+        request.userId = Number(sub);
+        console.log(sub);
         return next();
     }
     catch (error) {

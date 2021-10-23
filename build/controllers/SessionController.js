@@ -18,7 +18,7 @@ class SessionController {
                 response.json({ err: true, data: null, error: null, message: (0, message_1.ERROR_USER_PASSWORD)() });
             if (!bcryptjs_1.default.compareSync(password, user.password))
                 response.json({ err: true, data: null, error: null, message: (0, message_1.ERROR_USER_PASSWORD)() });
-            const token = jsonwebtoken_1.default.sign({ data: { id: user.id, username: user.username, role: user.role } }, process.env.JWT, { expiresIn: '8h' });
+            const token = jsonwebtoken_1.default.sign({ user: user }, process.env.JWT, { expiresIn: '8h', subject: String(user.id) });
             response.json({ err: false, data: { token, username: user.username, role: user.role, id: user.id }, error: null, message: (0, message_1.SUCCESS_MESSAGE)() });
         }
         catch (error) {
@@ -40,6 +40,7 @@ class SessionController {
             response.json({ err: false, data: user, error: null, message: (0, message_1.SUCCESS_MESSAGE)() });
         }
         catch (error) {
+            console.log("error");
             response.json({ err: true, data: null, error: error.message, message: (0, message_1.ERROR_MESSAGE)() });
         }
     }

@@ -8,7 +8,7 @@ class DispatchController {
     async getById(request, response) { }
     async store(request, response) {
         const { quantity, exitId, typeProductId } = request.body;
-        const user_id = request.userId.id;
+        const user_id = request.userId;
         try {
             const produto_quantidade = await client_1.prisma.typeProduct.findFirst({ where: { id: Number(typeProductId) }, select: { inventory: true } });
             if ((produto_quantidade === null || produto_quantidade === void 0 ? void 0 : produto_quantidade.inventory) < Number(quantity))
@@ -25,6 +25,7 @@ class DispatchController {
             const data_final = await (0, crud_1.EntradaProduto)({ quantidade: quantity, role: "SAIDA", user_id: user_id, typeProductId: typeProductId });
             if (!data_final)
                 return response.json({ err: true, data: null, error: null, message: (0, message_1.CUSTOM_MESSAGE)("NÃO FOI POSSÍVEL ATUALIZAR A TABELA DE HISTÓRICO DESSE PRODUTO.") });
+            //  Sucesso em todas as inserções no banco de dados.
             return response.json({ err: false, data: { produto_quantidade, insert_data, update_categoria_produto, data_final }, error: null, message: (0, message_1.SUCCESS_MESSAGE)() });
         }
         catch (error) {

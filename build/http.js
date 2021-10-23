@@ -16,6 +16,7 @@ const serverHttp = http_1.default.createServer(app);
 exports.serverHttp = serverHttp;
 const io = new socket_io_1.Server(serverHttp, { cors: { origin: '*' } });
 exports.io = io;
+// app.use((request: Request, response: Response, next: NextFunction) => {})
 app.use('/public', express_1.default.static(path_1.default.join(__dirname, '..', 'src', 'tmp')));
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());

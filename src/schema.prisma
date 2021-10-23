@@ -70,13 +70,13 @@ model Exit {
 
 // Saida de produtos da farmácia
 model Dispatch {
-  id            Int         @id @default(autoincrement())
-  quantity      Int
+  id       Int @id @default(autoincrement())
+  quantity Int
 
-  TypeProduct   TypeProduct @relation(fields: [typeProductId], references: [id])
-  User          User        @relation(fields: [userId], references: [id])
-  Exit          Exit        @relation(fields: [exitId], references: [id])
-  
+  TypeProduct TypeProduct @relation(fields: [typeProductId], references: [id])
+  User        User        @relation(fields: [userId], references: [id])
+  Exit        Exit        @relation(fields: [exitId], references: [id])
+
   typeProductId Int
   userId        Int
   exitId        Int
@@ -99,7 +99,7 @@ model Prohibited {
 }
 
 model Product {
-  id          Int      @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   nfe         String?
   expires     String
   code_unique String
@@ -114,8 +114,8 @@ model Product {
   userId        Int
   prohibitedId  Int
 
-  created_at  DateTime @default(now())
-  updated_at  DateTime @default(now()) @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
 
   @@map("products")
 }

@@ -21,45 +21,20 @@ class EntradaProdutoController {
     async getById(request: Request, response: Response) { }
 
     async store(request: Request, response: Response) {
-        const {
-            nfe,
-            expires,
-            quantity,
-            prohibitedId,
-            companyId,
-            typeProductId
-        } =
-            request.body;
-
-
-        const user_id = request.userId.id;
+        const { nfe, expires, quantity, prohibitedId, companyId, typeProductId } = request.body;
+        const user_id = request.userId;
         const code_unique = gerarLote();
-        console.log(user_id);
 
-        if (expires === "" || quantity === "" || prohibitedId === "" || companyId === "" || typeProductId === "") {
-            response.json({ err: true, data: null, error: null, message: CUSTOM_MESSAGE("OLHA! PREENCHA TODOS OS CAMPOS QUE SÃO OBRIGÁTORIOS") });
-            return
+        if (expires === "" || quantity === "" || prohibitedId === "" || companyId === "" || typeProductId === "") 
+        {
+            return response.json({ err: true, data: null, error: null, message: CUSTOM_MESSAGE("OLHA! PREENCHA TODOS OS CAMPOS QUE SÃO OBRIGATÓRIOS") });            
         }
-
+        
         const produto_quantidade = await prisma.typeProduct.findFirst({ where: { id: Number(typeProductId) }, select: { inventory: true } })
         const total = Number(quantity) + produto_quantidade?.inventory;
-
-
+        
         if (!produto_quantidade) return response.json({ err: true, data: null, error: null, message: ERROR_NULL() });
-
-        const insert_data = await prisma.product.create({
-            data:
-            {
-                nfe: nfe,
-                expires: expires,
-                code_unique: code_unique,
-                quantity: Number(total),
-                prohibitedId: Number(prohibitedId),
-                companyId: Number(companyId),
-                typeProductId: Number(typeProductId),
-                userId: user_id,
-            }
-        })
+        const insert_data = await prisma.product.create({data: { nfe: nfe, expires: expires,code_unique: code_unique,quantity: Number(total),prohibitedId: Number(prohibitedId),companyId: Number(companyId), typeProductId: Number(typeProductId),userId: user_id }})
 
         if (!insert_data) return response.json({ err: true, data: null, error: null, message: ERROR_MESSAGE() });
         await prisma.typeProduct.update({ where: { id: Number(typeProductId) }, data: { inventory: total } });
@@ -68,7 +43,7 @@ class EntradaProdutoController {
 
 
         if (!data_final) return response.json({ err: true, data: null, error: null, message: ERROR_MESSAGE() });
-        response.json({ err: false, data: { produto_quantidade, insert_data, data_final }, error: null, message: SUCCESS_MESSAGE() })
+        return response.json({ err: false, data: { produto_quantidade, insert_data, data_final }, error: null, message: SUCCESS_MESSAGE() })
     }
     async update(request: Request, response: Response) { }
     async delete(request: Request, response: Response) { }

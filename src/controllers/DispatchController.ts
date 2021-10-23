@@ -17,7 +17,7 @@ class DispatchController {
 
     const { quantity, exitId, typeProductId } = request.body;
 
-    const user_id = request.userId.id;
+    const user_id = request.userId;
 
     try {
       const produto_quantidade = await prisma.typeProduct.findFirst({ where: { id: Number(typeProductId) }, select: { inventory: true } })

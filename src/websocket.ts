@@ -1,8 +1,8 @@
-import { io } from "./http";
+import { io } from './http';
 
-type IPropsSocket = {}
+type IPropsSocket = {};
 
-io.on("connection", (socket: any) => {
-  console.log("user connected: ", socket.id);
-  socket.on("disconnect", () => console.log("user desconect socketIo"));
+io.on('connection', (socket: any) => {
+    console.log('user connected: ', socket.id);
+    socket.on('disconnect', () => console.log('user desconect socketIo'));
 });

@@ -1,34 +1,15 @@
 {
     "compilerOptions": {
-        "target": "es2017",
-        "module": "commonjs",
-        "lib": ["es6"],
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
-        "noImplicitAny": false,
-        "moduleResolution": "node",
-        "sourceMap": false,
         "outDir": "./build",
         "rootDir": "./src",
         "baseUrl": ".",
-        "removeComments": true,
-        "preserveConstEnums": true,
-        "typeRoots": ["./node_modules/@types", "./src/@types"],
-        "paths": {
-            "@controllers/*": ["./src/controllers/*"],
-            "@middleware/*": ["./src/middleware/*"],
-            "@services/*": ["./src/services/*"],
-            "@routes/*": ["./src/router/*"]
-        }
-    },
-    // "include": ["src/**/*"],
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "esModuleInterop": true,
-    "strictPropertyInitialization": false,
-    "strict": false,
-    "resolveJsonModule": true,
-    "allowJs": true
+
+        "target": "es2017",
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": false,
+        "skipLibCheck": true,
+        "typeRoots": ["./src/@types", "node_modules/@types"]
+    }
 }

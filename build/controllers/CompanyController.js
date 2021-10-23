@@ -4,14 +4,9 @@ const message_1 = require("../config/message");
 const client_1 = require("../prisma/client");
 class CompanyController {
     async index(request, response) {
-        const { page, limit } = request.query;
-        const per_page = page ? page : 0;
-        const limit_sql = limit ? limit : 10;
         try {
-            const rows_total_register = await client_1.prisma.company.count();
             const company = await client_1.prisma.company.findMany();
-            response.header('X-Total-Count-Company', rows_total_register);
-            response.json({ err: false, data: { company, rows_total_register }, error: null, message: (0, message_1.SUCCESS_MESSAGE)() });
+            response.json({ err: false, data: company, error: null, message: (0, message_1.SUCCESS_MESSAGE)() });
         }
         catch (error) {
             response.json({ err: true, data: null, error: null, message: (0, message_1.ERROR_MESSAGE)() });
@@ -30,6 +25,9 @@ class CompanyController {
     }
     async store(request, response) {
         const { register, name, address, number_phone } = request.body;
+        if (register === '' || name === '' || address === '' || number_phone === '') {
+            return response.json({ err: true, data: null, error: null, message: (0, message_1.CUSTOM_MESSAGE)("OLHA! PREENCHA TODOS OS CAMPOS QUE SÃO OBRIGATÓRIOS") });
+        }
         try {
             const company = await client_1.prisma.company.create({
                 data: {
